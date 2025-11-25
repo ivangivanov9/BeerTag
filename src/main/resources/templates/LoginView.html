@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{fragments/PageLayout.html :: head('Login')}"></form>
+<body>
+<form th:replace="~{fragments/PageLayout.html :: header}"></form>
+
+<div class="body-content">
+    <h2>Login</h2>
+
+    <form th:action="@{/auth/login}" th:object="${loginDto}" method="post">
+        <div>
+            <label>Username:</label>
+            <br/>
+            <input type="text" th:field="*{username}" />
+            <label class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</label>
+        </div>
+        <br/>
+
+        <div>
+            <label>Password:</label>
+            <br/>
+            <input type="password" th:field="*{password}" />
+            <label class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</label>
+        </div>
+        <br/>
+
+        <div>
+            <input type="submit" value="Login" />
+        </div>
+    </form>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <p>Don't have an account? <a th:href="@{/auth/register}">Register here</a></p>
+</div>
+
+<form th:replace="~{fragments/PageLayout.html :: footer}"></form>
+</body>
+</html>
